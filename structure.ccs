@@ -4,34 +4,52 @@
   --accent:#9db4ff;
   --muted:#9aa6b2;
   --glass: rgba(255,255,255,0.03);
+  --danger:#a33;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
 *{box-sizing:border-box}
 html,body,#app{height:100%;margin:0;background:linear-gradient(180deg,var(--bg) 0%, #0b1116 100%);color:#e6eef6}
-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;background:var(--glass);backdrop-filter: blur(6px)}
-header h1{margin:0;font-size:18px}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:var(--glass);backdrop-filter: blur(6px)}
+.title-block h1{margin:0;font-size:18px}
+.title-block .sub{font-size:12px;color:var(--muted)}
 #status{display:flex;gap:12px;font-size:13px;color:var(--muted)}
-main{padding:20px;max-width:980px;margin:16px auto}
-#hero{margin-bottom:18px;padding:14px;background:linear-gradient(180deg,#111827 0,#0f1720 100%);border-radius:10px}
-#hero p{margin:0 0 12px 0;color:var(--muted)}
+.top-controls{display:flex;gap:8px;padding:12px 18px}
 button{background:var(--accent);color:#0a0f1a;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
-button:active{transform:translateY(1px)}
+main{padding:10px 18px;max-width:980px;margin:12px auto}
+#hero{margin-bottom:18px;padding:14px;background:linear-gradient(180deg,#111827 0,#0f1720 100%);border-radius:10px}
+.hero-actions{margin-top:8px}
 #maps{margin-top:10px}
 #maps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
 .map-card{background:linear-gradient(180deg,#121826 0,#0f1720 100%);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
 .map-card.locked{opacity:0.45;filter:grayscale(30%)}
-.map-title{font-weight:600;margin-bottom:6px}
+.map-title{font-weight:700;margin-bottom:6px}
 .map-desc{color:var(--muted);font-size:13px;margin-bottom:10px}
 .map-actions{display:flex;gap:8px;align-items:center}
 .hidden{display:none}
-#challenge-area{position:fixed;inset:0;background:rgba(3,6,10,0.6);display:flex;align-items:center;justify-content:center}
-#challenge-card{background:var(--panel);padding:18px;border-radius:12px;min-width:320px;max-width:640px}
-.choice{display:block;padding:8px;margin:8px 0;border-radius:8px;background:#0f1720;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+#challenge-area{position:fixed;inset:0;background:rgba(3,6,10,0.6);display:flex;align-items:center;justify-content:center;z-index:50}
+#challenge-card{background:var(--panel);padding:18px;border-radius:12px;min-width:320px;max-width:640px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.choice{display:block;padding:10px;margin:8px 0;border-radius:8px;background:#0f1720;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
 .choice.correct{outline:2px solid #3de79a}
 .choice.wrong{opacity:0.6;filter:grayscale(40%)}
 #challenge-feedback{margin-top:8px;color:var(--muted)}
-#roster-area{position:fixed;inset:10% 10% auto 10%;background:var(--panel);padding:16px;border-radius:10px;min-height:200px}
-.roster-item{display:flex;gap:12px;align-items:center;padding:10px;border-radius:8px;background:linear-gradient(180deg,#0e1620,#0b1116)}
-.roster-stats{font-size:13px;color:var(--muted)}
-footer{padding:12px;text-align:center;color:var(--muted)}
+#roster-area, #settings-area{position:fixed;right:6%;top:12%;width:320px;background:var(--panel);padding:16px;border-radius:10px;min-height:160px;z-index:60}
+.panel-actions{margin-top:12px;display:flex;justify-content:flex-end}
+.setting-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.warning{margin-top:8px;font-size:12px;color:var(--muted)}
+#blood-overlay{pointer-events:none;position:fixed;inset:0;z-index:40;opacity:0;transition:opacity 300ms ease}
+#blood-overlay.show{opacity:1}
+.blood-spray{
+  position:absolute;inset:0;background:
+    radial-gradient(circle at 15% 20%, rgba(163,50,50,0.65) 0, rgba(163,50,50,0.35) 6%, transparent 12%),
+    radial-gradient(circle at 80% 70%, rgba(120,30,30,0.5) 0, rgba(120,30,30,0.25) 6%, transparent 12%);
+  mix-blend-mode: multiply;
+  animation: blood-pulse 1800ms infinite alternate;
+}
+@keyframes blood-pulse{
+  from{opacity:0.9}
+  to{opacity:0.6}
+}
+
+.footer-note{font-size:12px;color:var(--muted)}
+.footer-subtle{font-size:11px;color:var(--muted);margin-top:8px}
