@@ -1,0 +1,9 @@
+This repository includes a placeholder path for icons:
+- icons/icon-192.png
+- icons/icon-512.png
+- icons/apple-touch-icon.png
+
+Replace these files with your art assets (PNG). Sizes recommended:
+- apple-touch-icon.png: 180x180
+- icon-192.png: 192x192
+- icon-512.png: 512x512
