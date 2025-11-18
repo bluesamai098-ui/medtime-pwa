@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MedTime: Legends of Medicine (PWA)</title>
+
+  <!-- Progressive Web App manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- iOS meta tags to make it installable on Safari home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MedTime" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+  <!-- Basic styling -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Fallback icon for browsers that don't use manifest icons -->
+  <meta name="theme-color" content="#2b2f3a" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>MedTime: Legends of Medicine</h1>
+      <div id="status">
+        <div id="xp">XP: 0</div>
+        <div id="level">Level: 1</div>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero">
+        <p>Learn Edexcel "Medicine Through Time" by playing. Unlock maps by completing earlier maps. Each map is a historical era with characters, challenges, and story quests.</p>
+        <button id="open-roster">Open Roster</button>
+      </section>
+
+      <section id="maps">
+        <h2>Maps</h2>
+        <div id="maps-grid"></div>
+      </section>
+
+      <section id="challenge-area" class="hidden">
+        <div id="challenge-card">
+          <h3 id="challenge-title"></h3>
+          <p id="challenge-text"></p>
+          <div id="challenge-choices"></div>
+          <div id="challenge-feedback"></div>
+          <button id="close-challenge">Close</button>
+        </div>
+      </section>
+
+      <section id="roster-area" class="hidden">
+        <h2>Your Roster</h2>
+        <div id="roster-list"></div>
+        <button id="close-roster">Close Roster</button>
+      </section>
+    </main>
+
+    <footer>
+      <small>Progress is saved locally. Add to Home Screen on iOS Safari to "download" the game.</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Register service worker for offline capability (if supported)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(function(err){
+        console.warn("SW registration failed:", err);
+      });
+    }
+  </script>
+</body>
+</html>
