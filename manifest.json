@@ -1,7 +1,7 @@
 {
   "name": "MedTime: Legends of Medicine",
   "short_name": "MedTime",
-  "start_url": "/index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0f1720",
   "theme_color": "#2b2f3a",
