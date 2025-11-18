@@ -5,35 +5,42 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MedTime: Legends of Medicine (PWA)</title>
 
-  <!-- Progressive Web App manifest -->
   <link rel="manifest" href="manifest.json" />
 
-  <!-- iOS meta tags to make it installable on Safari home screen -->
+  <!-- iOS meta tags -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="MedTime" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 
-  <!-- Basic styling -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Fallback icon for browsers that don't use manifest icons -->
   <meta name="theme-color" content="#2b2f3a" />
 </head>
 <body>
   <div id="app">
     <header>
-      <h1>MedTime: Legends of Medicine</h1>
+      <div class="title-block">
+        <h1>MedTime: Legends of Medicine</h1>
+        <div class="sub">Edexcel — Medicine Through Time (gamified)</div>
+      </div>
+
       <div id="status">
         <div id="xp">XP: 0</div>
         <div id="level">Level: 1</div>
       </div>
     </header>
 
+    <nav class="top-controls">
+      <button id="open-roster">Roster</button>
+      <button id="open-settings">Settings</button>
+    </nav>
+
     <main>
       <section id="hero">
-        <p>Learn Edexcel "Medicine Through Time" by playing. Unlock maps by completing earlier maps. Each map is a historical era with characters, challenges, and story quests.</p>
-        <button id="open-roster">Open Roster</button>
+        <p>Travel through eras, recruit historical characters and complete story challenges. Unlock maps progressively — finish Map 1 to unlock Map 2, and so on.</p>
+        <div class="hero-actions">
+          <button id="start-first">Start First Quest</button>
+        </div>
       </section>
 
       <section id="maps">
@@ -41,31 +48,48 @@
         <div id="maps-grid"></div>
       </section>
 
-      <section id="challenge-area" class="hidden">
-        <div id="challenge-card">
+      <section id="challenge-area" class="hidden" aria-hidden="true">
+        <div id="challenge-card" role="dialog" aria-modal="true">
           <h3 id="challenge-title"></h3>
           <p id="challenge-text"></p>
           <div id="challenge-choices"></div>
-          <div id="challenge-feedback"></div>
-          <button id="close-challenge">Close</button>
+          <div id="challenge-feedback" aria-live="polite"></div>
+          <div class="challenge-actions">
+            <button id="close-challenge">Close</button>
+          </div>
         </div>
       </section>
 
-      <section id="roster-area" class="hidden">
+      <section id="roster-area" class="hidden" aria-hidden="true">
         <h2>Your Roster</h2>
         <div id="roster-list"></div>
-        <button id="close-roster">Close Roster</button>
+        <div class="panel-actions">
+          <button id="close-roster">Close Roster</button>
+        </div>
+      </section>
+
+      <section id="settings-area" class="hidden" aria-hidden="true">
+        <h2>Settings</h2>
+        <label class="setting-row">
+          <input type="checkbox" id="gore-toggle" />
+          <span>Enable historical realism (blood / dissections)</span>
+        </label>
+        <div class="warning" id="gore-warning">When enabled, some scenes will show non-graphic blood/dissection visuals for historical realism. Toggle off if you prefer no blood.</div>
+        <div class="panel-actions">
+          <button id="close-settings">Close</button>
+        </div>
       </section>
     </main>
 
+    <div id="blood-overlay" aria-hidden="true"></div>
+
     <footer>
-      <small>Progress is saved locally. Add to Home Screen on iOS Safari to "download" the game.</small>
+      <small>Progress saved locally. Add to Home Screen via iOS Safari (Share → Add to Home Screen).</small>
     </footer>
   </div>
 
   <script src="app.js"></script>
   <script>
-    // Register service worker for offline capability (if supported)
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js').catch(function(err){
         console.warn("SW registration failed:", err);
