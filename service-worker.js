@@ -1,11 +1,11 @@
-// Very small service worker to cache core assets for offline / "download" feel.
-const CACHE_NAME = 'medtime-cache-v1';
+// Cache core assets for offline use (simple).
+const CACHE_NAME = 'medtime-cache-v2';
 const URLS = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', (evt) => {
@@ -20,8 +20,9 @@ self.addEventListener('activate', (evt) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Network-first for dynamic requests, cache-first for assets
-  if (URLS.includes(new URL(e.request.url).pathname) ) {
+  const reqUrl = new URL(e.request.url);
+  // Serve core assets from cache first
+  if (URLS.includes(reqUrl.pathname) || URLS.includes(reqUrl.pathname + '/')) {
     e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
   } else {
     e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));
